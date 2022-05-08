@@ -1,7 +1,7 @@
 ---
 title: Automated Certificate Management Environment (ACME) Onion Identifier Validation Extension
 abbrev: ACME-ONION
-docname: draft-suchan-acme-onionv3
+docname: draft-suchan-acme-onionv3-00
 date: 2022-05-02
 category: std
 
@@ -80,7 +80,7 @@ With Onion-csr validation, the client in an ACME transaction proves its control 
 The Onion-csr ACME challenge object has the following format:
 
 type (required, string):
-: The string "onion-csr-00"
+: The string "onion-v3-csr
 
 token (required, string):
 : A random value that uniquely identifies the challenge. This value MUST have at least 128 bits of entropy. It MUST NOT contain any characters outside the base64url alphabet as described in {{RFC4648}} Section 5. Trailing '=' padding characters MUST be stripped. See {{!RFC4086}} for additional information on randomness requirements.
@@ -130,7 +130,7 @@ in the Validation Methods list defined in Section 9.7.8 of {{RFC8555}}:
 
 Adds the raw "onin-challange-csr" to the Validation Methods.
 
-Adds the value "onion-v3" to the Identifier Type column  for the "http-01", "onion-challange-csr", and "tls-alpn-01" challenges.
+Adds the value "onion-v3-csr" to the Identifier Type column  for the "http-01", "onion-challange-csr", and "tls-alpn-01" challenges.
 
 # Security Considerations
 
