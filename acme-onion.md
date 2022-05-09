@@ -2,7 +2,7 @@
 title: Automated Certificate Management Environment (ACME) Onion Identifier Validation Extension
 abbrev: ACME-ONION
 docname: draft-suchan-acme-onionv3-00
-date: 2022-05-02
+date: 2022-05-09
 category: std
 
 stand_alone: yes
@@ -32,14 +32,22 @@ normative:
   RFC4086:
   RFC4648:
   RFC5280:
+  RFC7686:
+  RFC8174:
   RFC8555:
   RFC8737:
   cabr:
     title: CA/B forum baseline requirement
     author:
       name:  CA/Browser Forum
-    date: 2022
+    date: 2022-04-26
     target: https://cabforum.org/wp-content/uploads/CA-Browser-Forum-BR-1.8.4.pdf
+  Toraddr:
+    title: Tor address spec
+    author:
+      name: Nick Mathewson
+    date: 2021-08-24
+    target: https://github.com/torproject/torspec/blob/main/address-spec.txt
 
 --- abstract
 
@@ -49,21 +57,27 @@ This document specifies identifiers and challenges required to enable the Automa
 
 # Introduction
 
-While onion addresses are in form of DNS address, they aren't in part of ICANN hierarchy, and onion name's self-verifying construction warrents different verification, duce different identfier type for them is worth consider.
+While onion addresses {{RFC7686}} are in form of DNS address, they aren't in part of ICANN hierarchy, and onion name's self-verifying construction warrents different verification, duce different identfier type for them is worth consider.
 
 # Terminology
 
-In this document, the key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" are to be interpreted as described in BCP 14, {{RFC2119}}.
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 {{RFC2119}} {{RFC8174}} when, and only when, they appear in all capitals, as shown here.
 
 # Onion Identifier
 
-{{RFC8555}} only defines the identifier type "dns", but it assumes it's on public CA/B hirearuchy 
+{{RFC8555}} only defines the identifier type "dns", that assumes it's on public CA/B hirearuchy, so to make clear Onion addresses are not using normal DNS valification methods, we assign a new identifier type for onion v3 addresses, "onion-v3".
 
-An identifier for the onion address acmeulkebl5k66q4sgcgzpe3tddrffnpn5gpnkpamz4zcuv5hk7fqwad.onion would be formatted like:
+This document only handles V3 version of onion address as defined in {{Toraddr}}, identified by 56 letters base domain name ends with d. 
+
+This document doesn't handle about velification of version 2 of onion addresses, as they are retired already
+
+An identifier for the onion address acmeulkebl5..4zcuv5hk7fqwad.onion would be formatted like:
 
 ~~~~~~~~~~
-{"type": "onion-v3", "value": "acmeulkebl5k66q4sgcgzpe3tddrffnpn5gpnkpamz4zcuv5hk7fqwad.onion"}
+{"type": "onion-v3", "value": "acmeulkebl5...z4zcuv5hk7fqwad.onion"}
 ~~~~~~~~~~
+
+Keep mind in CSR this address still treated as DNS.
 
 # Validation Challenges for onion address
 
@@ -88,6 +102,28 @@ token (required, string):
 The client prepares for validation by constructing a self-signed CSR that MUST contain an cabf caSigningNonce Attribute and a subjectAlternativeName extension {{!RFC5280}}. The subjectAlternativeName extension MUST contain a single dNSName entry where the value is the domain name being validated. The cabf caSigningNonce Attribute MUST contain the token string as ascii encoded for the challenge.
 
 The cabf caSigningNonce Attribute is identified by the cabf-caSigningNonce object identifier (OID) in the cabf arc {{!RFC5280}}. conseurt {{cabr}} appendex B for how to construct CSR itself in detail.
+
+~~~~~~~~~~
+cabf OBJECT IDENTIFIER ::= 2.23.140 
+{ joint-iso-itu-t(2) internationalorganizations(23) ca-browser-forum(140) }
+
+caSigningNonce ATTRIBUTE ::= {
+WITH SYNTAX OCTET STRING
+EQUALITY MATCHING RULE octetStringMatch
+SINGLE VALUE TRUE
+ID { cabf-caSigningNonce }
+}
+cabf-caSigningNonce OBJECT IDENTIFIER ::= { cabf 41 }
+
+applicantSigningNonce ATTRIBUTE ::= {
+WITH SYNTAX OCTET STRING
+EQUALITY MATCHING RULE octetStringMatch
+SINGLE VALUE TRUE
+ID { cabf-applicantSigningNonce }
+}
+cabf-applicantSigningNonce OBJECT IDENTIFIER ::= { cabf 42 }
+
+~~~~~~~~~~
 
 A client fulfills this challenge by construct the challange CSR from the "token" value provided in the challange, then POST on challange URL with crafted CSR as payload to request validated by the server.
 
@@ -114,6 +150,7 @@ On receiving this request from client, the server verifies client's control over
 
 1. CSR is signed with private part of identity key the requested onion address made from.
 2. A caSigningNonce attribute that contains token Value that challenge object provided.
+3. A applicantSigningNonce attribute that contains client-genetarted random value. This value SHOULD include at least 64bits of entropy. (CA/BR requirement)
 
 
 

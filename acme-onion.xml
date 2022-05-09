@@ -23,7 +23,7 @@
       </address>
     </author>
 
-    <date year="2022" month="May" day="02"/>
+    <date year="2022" month="May" day="09"/>
 
     <area>General</area>
     <workgroup>ACME Working Group</workgroup>
@@ -47,23 +47,29 @@
 
 <section anchor="introduction"><name>Introduction</name>
 
-<t>While onion addresses are in form of DNS address, they aren&#39;t in part of ICANN hierarchy, and onion name&#39;s self-verifying construction warrents different verification, duce different identfier type for them is worth consider.</t>
+<t>While onion addresses <xref target="RFC7686"/> are in form of DNS address, they aren&#39;t in part of ICANN hierarchy, and onion name&#39;s self-verifying construction warrents different verification, duce different identfier type for them is worth consider.</t>
 
 </section>
 <section anchor="terminology"><name>Terminology</name>
 
-<t>In this document, the key words &quot;MUST&quot;, &quot;MUST NOT&quot;, &quot;REQUIRED&quot;, &quot;SHALL&quot;, &quot;SHALL NOT&quot;, &quot;SHOULD&quot;, &quot;SHOULD NOT&quot;, &quot;RECOMMENDED&quot;, &quot;MAY&quot;, and &quot;OPTIONAL&quot; are to be interpreted as described in BCP 14, <xref target="RFC2119"/>.</t>
+<t>The key words &quot;MUST&quot;, &quot;MUST NOT&quot;, &quot;REQUIRED&quot;, &quot;SHALL&quot;, &quot;SHALL NOT&quot;, &quot;SHOULD&quot;, &quot;SHOULD NOT&quot;, &quot;RECOMMENDED&quot;, &quot;NOT RECOMMENDED&quot;, &quot;MAY&quot;, and &quot;OPTIONAL&quot; in this document are to be interpreted as described in BCP 14 <xref target="RFC2119"/> <xref target="RFC8174"/> when, and only when, they appear in all capitals, as shown here.</t>
 
 </section>
 <section anchor="onion-identifier"><name>Onion Identifier</name>
 
-<t><xref target="RFC8555"/> only defines the identifier type &quot;dns&quot;, but it assumes it&#39;s on public CA/B hirearuchy</t>
+<t><xref target="RFC8555"/> only defines the identifier type &quot;dns&quot;, that assumes it&#39;s on public CA/B hirearuchy, so to make clear Onion addresses are not using normal DNS valification methods, we assign a new identifier type for onion v3 addresses, &quot;onion-v3&quot;.</t>
 
-<t>An identifier for the onion address acmeulkebl5k66q4sgcgzpe3tddrffnpn5gpnkpamz4zcuv5hk7fqwad.onion would be formatted like:</t>
+<t>This document only handles V3 version of onion address as defined in <xref target="Toraddr"/>, identified by 56 letters base domain name ends with d.</t>
+
+<t>This document doesn&#39;t handle about velification of version 2 of onion addresses, as they are retired already</t>
+
+<t>An identifier for the onion address acmeulkebl5..4zcuv5hk7fqwad.onion would be formatted like:</t>
 
 <figure><artwork><![CDATA[
-{"type": "onion-v3", "value": "acmeulkebl5k66q4sgcgzpe3tddrffnpn5gpnkpamz4zcuv5hk7fqwad.onion"}
+{"type": "onion-v3", "value": "acmeulkebl5...z4zcuv5hk7fqwad.onion"}
 ]]></artwork></figure>
+
+<t>Keep mind in CSR this address still treated as DNS.</t>
 
 </section>
 <section anchor="validation-challenges-for-onion-address"><name>Validation Challenges for onion address</name>
@@ -95,6 +101,28 @@
 
 <t>The cabf caSigningNonce Attribute is identified by the cabf-caSigningNonce object identifier (OID) in the cabf arc <xref target="RFC5280"/>. conseurt <xref target="cabr"/> appendex B for how to construct CSR itself in detail.</t>
 
+<figure><artwork><![CDATA[
+cabf OBJECT IDENTIFIER ::= 2.23.140 
+{ joint-iso-itu-t(2) internationalorganizations(23) ca-browser-forum(140) }
+
+caSigningNonce ATTRIBUTE ::= {
+WITH SYNTAX OCTET STRING
+EQUALITY MATCHING RULE octetStringMatch
+SINGLE VALUE TRUE
+ID { cabf-caSigningNonce }
+}
+cabf-caSigningNonce OBJECT IDENTIFIER ::= { cabf 41 }
+
+applicantSigningNonce ATTRIBUTE ::= {
+WITH SYNTAX OCTET STRING
+EQUALITY MATCHING RULE octetStringMatch
+SINGLE VALUE TRUE
+ID { cabf-applicantSigningNonce }
+}
+cabf-applicantSigningNonce OBJECT IDENTIFIER ::= { cabf 42 }
+
+]]></artwork></figure>
+
 <t>A client fulfills this challenge by construct the challange CSR from the &quot;token&quot; value provided in the challange, then POST on challange URL with crafted CSR as payload to request validated by the server.</t>
 
 <figure><artwork><![CDATA[
@@ -121,6 +149,7 @@ Content-Type: application/jose+json
 <t><list style="numbers">
   <t>CSR is signed with private part of identity key the requested onion address made from.</t>
   <t>A caSigningNonce attribute that contains token Value that challenge object provided.</t>
+  <t>A applicantSigningNonce attribute that contains client-genetarted random value. This value SHOULD include at least 64bits of entropy. (CA/BR requirement)</t>
 </list></t>
 
 </section>
@@ -225,6 +254,34 @@ Content-Type: application/jose+json
 
 
 
+<reference anchor='RFC7686' target='https://www.rfc-editor.org/info/rfc7686'>
+<front>
+<title>The &quot;.onion&quot; Special-Use Domain Name</title>
+<author fullname='J. Appelbaum' initials='J.' surname='Appelbaum'><organization/></author>
+<author fullname='A. Muffett' initials='A.' surname='Muffett'><organization/></author>
+<date month='October' year='2015'/>
+<abstract><t>This document registers the &quot;.onion&quot; Special-Use Domain Name.</t></abstract>
+</front>
+<seriesInfo name='RFC' value='7686'/>
+<seriesInfo name='DOI' value='10.17487/RFC7686'/>
+</reference>
+
+
+
+<reference anchor='RFC8174' target='https://www.rfc-editor.org/info/rfc8174'>
+<front>
+<title>Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words</title>
+<author fullname='B. Leiba' initials='B.' surname='Leiba'><organization/></author>
+<date month='May' year='2017'/>
+<abstract><t>RFC 2119 specifies common key words that may be used in protocol  specifications.  This document aims to reduce the ambiguity by clarifying that only UPPERCASE usage of the key words have the  defined special meanings.</t></abstract>
+</front>
+<seriesInfo name='BCP' value='14'/>
+<seriesInfo name='RFC' value='8174'/>
+<seriesInfo name='DOI' value='10.17487/RFC8174'/>
+</reference>
+
+
+
 <reference anchor='RFC8555' target='https://www.rfc-editor.org/info/rfc8555'>
 <front>
 <title>Automatic Certificate Management Environment (ACME)</title>
@@ -259,7 +316,16 @@ Content-Type: application/jose+json
     <author initials="C." surname="Forum" fullname="CA/Browser Forum">
       <organization></organization>
     </author>
-    <date year="2022"/>
+    <date year="2022" month="April" day="26"/>
+  </front>
+</reference>
+<reference anchor="Toraddr" target="https://github.com/torproject/torspec/blob/main/address-spec.txt">
+  <front>
+    <title>Tor address spec</title>
+    <author initials="N." surname="Mathewson" fullname="Nick Mathewson">
+      <organization></organization>
+    </author>
+    <date year="2021" month="August" day="24"/>
   </front>
 </reference>
 
@@ -272,65 +338,76 @@ Content-Type: application/jose+json
   </back>
 
 <!-- ##markdown-source:
-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
-5gASJDpTniYRNBcNrKZVMc2LwoWWbUcdbVjt/MAVgERyjaTPHfZip44UU2QW
-sunRIeZhLT5cIQZAwU7Yp+v3gd5TGldrxCIYpdzQDEHG1MVpF+3Gr4FLk0fd
-Ct+wR03JHo05d3sHh0fHewfRO+MwuKhbuSwLxaPYIAwrcZhI4cei7oX3vhmn
-/v7NUfd+j7mnA6s8gqUy9DtbGnlxzyNRRxYzaoMuxocnrzrd8G2R09ZOMya1
-bq01S1O/d9DsZl6n/X/Kr+nk5E9z82l2/WVy82X912i9SD80+3Dpr6W27O3g
-yMPLLmsfPPkT3UkoCJ2EXg6HZ2d3g7NqNjzrn/f7lwOTJMns+uvNZX9+/eFU
-D9/VajRiiWCkryxrvr8e3539fjYbfX53fXHxkY5+/f0P86/hfJWO+h8XV5ed
-6HGndwXaU6nK64qau22YGVoBnd1WmOtxBQQY1p63qjUt/9gcAyXhzCZQIKeC
-2wKNUaduS46sCE2Uh3xUxYOk2dxuQEqbr6jJaQaydoXn62sLVPZEkaVEDSKz
-kugwQYV8QgVyyx6sZk1Rruanz7s6+kNhb9INKRDx5Nkf9cWgHswYy45bqdbP
-SIR2fOxnGMSk0GodZhSkGVnQ2ligBWz6MkrnpiC+SV4nr8n8doe87bULFNai
-NSlwJbGKh0qYOozPk1z5aev3qCQ0e1vTagVrAmmNA5fKzw20/pVip08U69WW
-cnTkmhVDp9SwD7Uzncb2H69KWqcDvz1qhDo/8RppjwgW1VKLbQnZzh3dRsBj
-Dbq/nEd4BIWRlSWsPY1u3/30t4XwW4gRM/55zgdPLTF7oiKL75UMwKWwoUcS
-8KXUKU0eKWiySz3mZFNKlhY6T3QrhSBBRb7E6gDX5ks0wbgx4bd6JpeZLL1w
-BiUaQ24Vxm60LiuqNedm3PTPmEWowmDcBezn1Wwu5NJUmvNqSwRPh76EfplC
-yirivW5QgAQGnZC+of8FuwZRtmmn8JgRRZgnfaXR3FUHINb9Bbtbg/Cj5kcM
-4gFOYbn7TaPu3aZiiblATdjbVlGPAgKhvExD4nM7SrAmPKNhXET/AZJ/aJEY
-FgAA
+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
 
 -->
 
