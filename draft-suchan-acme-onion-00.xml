@@ -334,7 +334,7 @@ Content-Type: application/jose+json
 
 
 
-<section anchor="appendix-a-notes-and-questions-to-reviews"><name>Appendix A: Notes and Questions to reviews</name>
+<section anchor="notes-and-questions-to-reviews"><name>Notes and Questions to reviews</name>
 
 <t>should this be about onion address, or all kind of alternative DNS systems?
 should identifier type and challenge type include or strip -v3 tag from its name? if we include that how about this doc name itself? http-01 and tls-alpn-01 over tor will work as well for like onion address V2 or V12, but csr challenge may not. but it&#39;s reasonable to ask same identifier type should give same set of challenges.
@@ -417,13 +417,13 @@ xSITVTVWDRiqAVaFcL794IeDB55/QLUipxjc9WnHvJgaE8ykh8uU/4hknX0W
 NHNDi/JnIV1Ak7NoNgULyiyiEUOE7HHgOsml5NNcQ8fzPDooTRb42u14XEI8
 /uFjS8ZyCbxrFLsLBE7hJqboAh4oJK700A8cKOm6Ln5WTBFnC11kzDUVN1YD
 wLL5pr+SlGntwF1OjOrkAaW5PhIJxx2Vl10JHmNiTb3TnumMG1UHPV+m+yH9
-WEZzjqJOWah22mKgadRPjvpEEpL1Xc5+SNQKjjAzHqcxw4/Lod+WCgckFc12
-5zT+IvLaNBw82zFrENvCvCvP2p2Kbv1dw70qyYxmAdTJCRp9WTl1hEacRZ3H
-O5FMaOZarmaWpbLbSVmOuV2X4irvd8KD1k2UNtD0SciNTFKa2M+JtFYKP8hr
-NELcyQufWyTf5+OWo0NAvqbGQq6JFJv8iQkPwEBJUiJYmrkwLNeONbyRpmQ9
-XmAUQ6geOZVTeAyRJ9OEp4pg62W6rhIyK+KG2/zBjb8vX/lz3rtgxX+oYQHq
-yHGm+1YYLjTTzfC6ZtIyEzOEa6Mbvl49RgpRmk8iwZcyrp1R3EwdpUY1WIYi
-s2qMhzaV1K7J0eSRQh1d9JevxyU7A4VuFjEjvP90NXgX/AeH1UtfTB8AAA==
+WEZzjqKBpvE+OecTSUUWd3n6IVErGN/MeITGrD4uB31bYh+QJDTPndPIiwhr
+02TwPMesQWYL8648a3cSuvW3DPeqJDDq/6l7EzTusnLqSIx4irqNdyKZ0Jy1
+XM3MSqW2k7IcbbvOxFXb74QHqpsibeDoE48bk6Q0pZ8TUa0UfpCnaGy4kws+
+t0i+z8ctR4GAeU2NhVwTETb5E5McwIAypEStNHNhWK4da3gjTcl6vMAohk09
+Wiqn8OghT6YJTxLB0Mt0XSVhVsQNtPmDG3lfvvInvHfBiv84wwLU0eJM960w
+XFymm4F1zaRl9mXY1sY1fL16jBQiM59Egi9lLDujuDk6yotqmAxFZtXoDq0p
+qV2To8ljhDq66K9dj0t2BorbLGIWeP/pavAu+A/aoMtdQB8AAA==
 
 -->
 

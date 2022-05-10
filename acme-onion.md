@@ -180,7 +180,7 @@ As onion addresses are able to generated in massive quantity without financial c
 --- back
 
 
-# Appendix A: Notes and Questions to reviews
+# Notes and Questions to reviews
 
 should this be about onion address, or all kind of alternative DNS systems?
 should identifier type and challenge type include or strip -v3 tag from its name? if we include that how about this doc name itself? http-01 and tls-alpn-01 over tor will work as well for like onion address V2 or V12, but csr challenge may not. but it's reasonable to ask same identifier type should give same set of challenges.
