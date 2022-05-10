@@ -9,12 +9,26 @@
 <meta content="
        This document specifies identifiers and challenges required to enable the Automated Certificate Management Environment (ACME) to issue certificates for Tor Project's onion V3 addresses. 
     " name="description">
-<meta content="xml2rfc 3.12.2" name="generator">
+<meta content="xml2rfc 3.12.5" name="generator">
 <meta content="draft-suchan-acme-onionv3-00" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.12.2
-    Python 3.10.4
-    weasyprint 54.1
+  xml2rfc 3.12.5
+    Python 3.10.0
+    appdirs 1.4.4
+    ConfigArgParse 1.5.3
+    google-i18n-address 2.5.1
+    html5lib 1.1
+    intervaltree 3.1.0
+    Jinja2 2.11.3
+    kitchen 1.2.6
+    lxml 4.8.0
+    MarkupSafe 2.0.1
+    pycountry 22.3.5
+    pyflakes 2.4.0
+    PyYAML 6.0
+    requests 2.27.1
+    setuptools 57.4.0
+    six 1.16.0
 -->
 <link href="acme-onion.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
@@ -640,6 +654,9 @@ hr.addr {
   figure {
     overflow: scroll;
   }
+  pre.breakable {
+    break-inside: auto;
+  }
   h1, h2, h3, h4, h5, h6 {
     page-break-after: avoid;
   }
@@ -1162,6 +1179,7 @@ li > p:last-of-type {
   margin-bottom: 0;
 }
 </style>
+<link href="rfc-local.css" rel="stylesheet" type="text/css">
 <script type="application/javascript">async function addMetadata(){try{const e=document.styleSheets[0].cssRules;for(let t=0;t<e.length;t++)if(/#identifiers/.exec(e[t].selectorText)){const a=e[t].cssText.replace("#identifiers","#external-updates");document.styleSheets[0].insertRule(a,document.styleSheets[0].cssRules.length)}}catch(e){console.log(e)}const e=document.getElementById("external-metadata");if(e)try{var t,a="",o=function(e){const t=document.getElementsByTagName("meta");for(let a=0;a<t.length;a++)if(t[a].getAttribute("name")===e)return t[a].getAttribute("content");return""}("rfc.number");if(o){t="https://www.rfc-editor.org/rfc/rfc"+o+".json";try{const e=await fetch(t);a=await e.json()}catch(e){t=document.URL.indexOf("html")>=0?document.URL.replace(/html$/,"json"):document.URL+".json";const o=await fetch(t);a=await o.json()}}if(!a)return;e.style.display="block";const s="",d="https://datatracker.ietf.org/doc",n="https://datatracker.ietf.org/ipr/search",c="https://www.rfc-editor.org/info",l=a.doc_id.toLowerCase(),i=a.doc_id.slice(0,3).toLowerCase(),f=a.doc_id.slice(3).replace(/^0+/,""),u={status:"Status",obsoletes:"Obsoletes",obsoleted_by:"Obsoleted By",updates:"Updates",updated_by:"Updated By",see_also:"See Also",errata_url:"Errata"};let h="<dl style='overflow:hidden' id='external-updates'>";["status","obsoletes","obsoleted_by","updates","updated_by","see_also","errata_url"].forEach(e=>{if("status"==e){a[e]=a[e].toLowerCase();var t=a[e].split(" "),o=t.length,w="",p=1;for(let e=0;e<o;e++)p<o?w=w+r(t[e])+" ":w+=r(t[e]),p++;a[e]=w}else if("obsoletes"==e||"obsoleted_by"==e||"updates"==e||"updated_by"==e){var g,m="",b=1;g=a[e].length;for(let t=0;t<g;t++)a[e][t]&&(a[e][t]=String(a[e][t]).toLowerCase(),m=b<g?m+"<a href='"+s+"/rfc/".concat(a[e][t])+"'>"+a[e][t].slice(3)+"</a>, ":m+"<a href='"+s+"/rfc/".concat(a[e][t])+"'>"+a[e][t].slice(3)+"</a>",b++);a[e]=m}else if("see_also"==e){var y,L="",C=1;y=a[e].length;for(let t=0;t<y;t++)if(a[e][t]){a[e][t]=String(a[e][t]);var _=a[e][t].slice(0,3),v=a[e][t].slice(3).replace(/^0+/,"");L=C<y?"RFC"!=_?L+"<a href='"+s+"/info/"+_.toLowerCase().concat(v.toLowerCase())+"'>"+_+" "+v+"</a>, ":L+"<a href='"+s+"/info/"+_.toLowerCase().concat(v.toLowerCase())+"'>"+v+"</a>, ":"RFC"!=_?L+"<a href='"+s+"/info/"+_.toLowerCase().concat(v.toLowerCase())+"'>"+_+" "+v+"</a>":L+"<a href='"+s+"/info/"+_.toLowerCase().concat(v.toLowerCase())+"'>"+v+"</a>",C++}a[e]=L}else if("errata_url"==e){var R="";R=a[e]?R+"<a href='"+a[e]+"'>Errata exist</a> | <a href='"+d+"/"+l+"'>Datatracker</a>| <a href='"+n+"/?"+i+"="+f+"&submit="+i+"'>IPR</a> | <a href='"+c+"/"+l+"'>Info page</a>":"<a href='"+d+"/"+l+"'>Datatracker</a> | <a href='"+n+"/?"+i+"="+f+"&submit="+i+"'>IPR</a> | <a href='"+c+"/"+l+"'>Info page</a>",a[e]=R}""!=a[e]?"Errata"==u[e]?h+=`<dt>More info:</dt><dd>${a[e]}</dd>`:h+=`<dt>${u[e]}:</dt><dd>${a[e]}</dd>`:"Errata"==u[e]&&(h+=`<dt>More info:</dt><dd>${a[e]}</dd>`)}),h+="</dl>",e.innerHTML=h}catch(e){console.log(e)}else console.log("Could not locate metadata <div> element");function r(e){return e.charAt(0).toUpperCase()+e.slice(1)}}window.removeEventListener("load",addMetadata),window.addEventListener("load",addMetadata);</script>
 </head>
 <body>
@@ -1286,13 +1304,10 @@ li > p:last-of-type {
             <p id="section-toc.1-1.6.1"><a href="#section-6" class="xref">6</a>.  <a href="#name-security-considerations-2" class="xref">Security Considerations</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7">
-            <p id="section-toc.1-1.7.1"><a href="#section-7" class="xref">7</a>.  <a href="#name-note-2" class="xref">note</a></p>
+            <p id="section-toc.1-1.7.1"><a href="#section-7" class="xref">7</a>.  <a href="#name-normative-references-2" class="xref">Normative References</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8">
-            <p id="section-toc.1-1.8.1"><a href="#section-8" class="xref">8</a>.  <a href="#name-normative-references-2" class="xref">Normative References</a></p>
-</li>
-          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9">
-            <p id="section-toc.1-1.9.1"><a href="#appendix-A" class="xref"></a><a href="#name-authors-address-2" class="xref">Author's Address</a></p>
+            <p id="section-toc.1-1.8.1"><a href="#appendix-A" class="xref"></a><a href="#name-authors-address-2" class="xref">Author's Address</a></p>
 </li>
         </ul>
 </nav>
@@ -1363,7 +1378,11 @@ li > p:last-of-type {
 <div class="alignLeft art-text artwork" id="section-4.1-6">
 <pre>
 cabf OBJECT IDENTIFIER ::= 2.23.140
-{ joint-iso-itu-t(2) internationalorganizations(23) ca-browser-forum(140) }
+{
+  joint-iso-itu-t(2)
+    internationalorganizations(23)
+      a-browser-forum(140)
+}
 
 caSigningNonce ATTRIBUTE ::= {
 WITH SYNTAX OCTET STRING
@@ -1410,7 +1429,7 @@ Content-Type: application/jose+json
 </li>
           <li id="section-4.1-10.2">A caSigningNonce attribute that contains token Value that challenge object provided.<a href="#section-4.1-10.2" class="pilcrow">¶</a>
 </li>
-          <li id="section-4.1-10.3">exsistance of applicantSigningNonce attribute. This value SHOULD include at least 64bits of entropy from client side, but server MAY NOT verify such claim, as by nature it's imposible to verify such claim of randomness.<a href="#section-4.1-10.3" class="pilcrow">¶</a>
+          <li id="section-4.1-10.3">exsistance of applicantSigningNonce attribute. This value SHOULD include random value from client side with at least 64bits of entropy, and CA MUST recommand to client do so, but servers are not expected verify such claim, as by nature it's imposible to verify such claim of randomness.<a href="#section-4.1-10.3" class="pilcrow">¶</a>
 </li>
         </ol>
 </section>
@@ -1450,18 +1469,9 @@ Content-Type: application/jose+json
 <p id="section-6-1">As onion addresses are able to generated in massive quantity without financial cost, it bypasses the normal ratelimit CAs imposess. CAs SHOULD adapt some mesure to prevent DoS of CA by create hugh amount of request for onion address. For exemple, imposing limit per ACME account or require order to have at least one non-onion domain.<a href="#section-6-1" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="note">
 <section id="section-7">
-      <h2 id="name-note-2">
-<a href="#section-7" class="section-number selfRef">7. </a><a href="#name-note-2" class="section-name selfRef">note</a>
-      </h2>
-<p id="section-7-1">Should this be generic documents about all public key based alternative DNS nameing system?
-Is it allowed to point to external rule document outside like CA/B?<a href="#section-7-1" class="pilcrow">¶</a></p>
-</section>
-</div>
-<section id="section-8">
       <h2 id="name-normative-references-2">
-<a href="#section-8" class="section-number selfRef">8. </a><a href="#name-normative-references-2" class="section-name selfRef">Normative References</a>
+<a href="#section-7" class="section-number selfRef">7. </a><a href="#name-normative-references-2" class="section-name selfRef">Normative References</a>
       </h2>
 <dl class="references">
 <dt id="cabr">[cabr]</dt>

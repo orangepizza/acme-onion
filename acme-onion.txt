@@ -69,8 +69,7 @@ Table of Contents
      5.1.  Identifier Types  . . . . . . . . . . . . . . . . . . . .   5
      5.2.  Challenge Types . . . . . . . . . . . . . . . . . . . . .   5
    6.  Security Considerations . . . . . . . . . . . . . . . . . . .   5
-   7.  note  . . . . . . . . . . . . . . . . . . . . . . . . . . . .   5
-   8.  Normative References  . . . . . . . . . . . . . . . . . . . .   5
+   7.  Normative References  . . . . . . . . . . . . . . . . . . . .   5
    Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .   6
 
 1.  Introduction
@@ -106,6 +105,7 @@ Table of Contents
 
    {"type": "onion-v3", "value": "acmeulkebl5...z4zcuv5hk7fqwad.onion"}
 
+   Keep mind in CSR this address still treated as DNS.
 
 
 
@@ -113,8 +113,6 @@ Seo Suchan              Expires 10 November 2022                [Page 2]
 
 Internet-Draft                 ACME-ONION                       May 2022
 
-
-   Keep mind in CSR this address still treated as DNS.
 
 4.  Validation Challenges for onion address
 
@@ -165,29 +163,35 @@ Internet-Draft                 ACME-ONION                       May 2022
 
 
 
+
+
 Seo Suchan              Expires 10 November 2022                [Page 3]
 
 Internet-Draft                 ACME-ONION                       May 2022
 
 
-cabf OBJECT IDENTIFIER ::= 2.23.140
-{ joint-iso-itu-t(2) internationalorganizations(23) ca-browser-forum(140) }
+   cabf OBJECT IDENTIFIER ::= 2.23.140
+   {
+     joint-iso-itu-t(2)
+       internationalorganizations(23)
+         a-browser-forum(140)
+   }
 
-caSigningNonce ATTRIBUTE ::= {
-WITH SYNTAX OCTET STRING
-EQUALITY MATCHING RULE octetStringMatch
-SINGLE VALUE TRUE
-ID { cabf-caSigningNonce }
-}
-cabf-caSigningNonce OBJECT IDENTIFIER ::= { cabf 41 }
+   caSigningNonce ATTRIBUTE ::= {
+   WITH SYNTAX OCTET STRING
+   EQUALITY MATCHING RULE octetStringMatch
+   SINGLE VALUE TRUE
+   ID { cabf-caSigningNonce }
+   }
+   cabf-caSigningNonce OBJECT IDENTIFIER ::= { cabf 41 }
 
-applicantSigningNonce ATTRIBUTE ::= {
-WITH SYNTAX OCTET STRING
-EQUALITY MATCHING RULE octetStringMatch
-SINGLE VALUE TRUE
-ID { cabf-applicantSigningNonce }
-}
-cabf-applicantSigningNonce OBJECT IDENTIFIER ::= { cabf 42 }
+   applicantSigningNonce ATTRIBUTE ::= {
+   WITH SYNTAX OCTET STRING
+   EQUALITY MATCHING RULE octetStringMatch
+   SINGLE VALUE TRUE
+   ID { cabf-applicantSigningNonce }
+   }
+   cabf-applicantSigningNonce OBJECT IDENTIFIER ::= { cabf 42 }
 
    A client fulfills this challenge by construct the challange CSR from
    the "token" value provided in the challange, then POST on challange
@@ -214,10 +218,6 @@ cabf-applicantSigningNonce OBJECT IDENTIFIER ::= { cabf 42 }
    control over the onion address by verifiy that CSR is crafted with
    expected properties:
 
-   1.  CSR is signed with private part of identity key the requested
-       onion address made from.
-
-
 
 
 
@@ -226,13 +226,17 @@ Seo Suchan              Expires 10 November 2022                [Page 4]
 Internet-Draft                 ACME-ONION                       May 2022
 
 
+   1.  CSR is signed with private part of identity key the requested
+       onion address made from.
+
    2.  A caSigningNonce attribute that contains token Value that
        challenge object provided.
 
    3.  exsistance of applicantSigningNonce attribute.  This value SHOULD
-       include at least 64bits of entropy from client side, but server
-       MAY NOT verify such claim, as by nature it's imposible to verify
-       such claim of randomness.
+       include random value from client side with at least 64bits of
+       entropy, and CA MUST recommand to client do so, but servers are
+       not expected verify such claim, as by nature it's imposible to
+       verify such claim of randomness.
 
 5.  IANA Considerations
 
@@ -259,20 +263,16 @@ Internet-Draft                 ACME-ONION                       May 2022
    of request for onion address.  For exemple, imposing limit per ACME
    account or require order to have at least one non-onion domain.
 
-7.  note
-
-   Should this be generic documents about all public key based
-   alternative DNS nameing system?  Is it allowed to point to external
-   rule document outside like CA/B?
-
-8.  Normative References
+7.  Normative References
 
    [cabr]     Forum, C., "CA/B forum baseline requirement", 26 April
               2022, <https://cabforum.org/wp-content/uploads/CA-Browser-
               Forum-BR-1.8.4.pdf>.
 
-
-
+   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", BCP 14, RFC 2119,
+              DOI 10.17487/RFC2119, March 1997,
+              <https://www.rfc-editor.org/info/rfc2119>.
 
 
 
@@ -281,11 +281,6 @@ Seo Suchan              Expires 10 November 2022                [Page 5]
 
 Internet-Draft                 ACME-ONION                       May 2022
 
-
-   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
-              Requirement Levels", BCP 14, RFC 2119,
-              DOI 10.17487/RFC2119, March 1997,
-              <https://www.rfc-editor.org/info/rfc2119>.
 
    [RFC4086]  Eastlake 3rd, D., Schiller, J., and S. Crocker,
               "Randomness Requirements for Security", BCP 106, RFC 4086,
@@ -329,6 +324,11 @@ Author's Address
 
    Seo Suchan
    Email: tjtncks@gmail.com
+
+
+
+
+
 
 
 

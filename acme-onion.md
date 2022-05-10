@@ -105,7 +105,11 @@ The cabf caSigningNonce Attribute is identified by the cabf-caSigningNonce objec
 
 ~~~~~~~~~~
 cabf OBJECT IDENTIFIER ::= 2.23.140 
-{ joint-iso-itu-t(2) internationalorganizations(23) ca-browser-forum(140) }
+{
+  joint-iso-itu-t(2)
+    internationalorganizations(23)
+      a-browser-forum(140)
+}
 
 caSigningNonce ATTRIBUTE ::= {
 WITH SYNTAX OCTET STRING
@@ -150,7 +154,7 @@ On receiving this request from client, the server verifies client's control over
 
 1. CSR is signed with private part of identity key the requested onion address made from.
 2. A caSigningNonce attribute that contains token Value that challenge object provided.
-3. exsistance of applicantSigningNonce attribute. This value SHOULD include at least 64bits of entropy from client side, but server MAY NOT verify such claim, as by nature it's imposible to verify such claim of randomness.
+3. exsistance of applicantSigningNonce attribute. This value SHOULD include random value from client side with at least 64bits of entropy, and CA MUST recommand to client do so, but servers are not expected verify such claim, as by nature it's imposible to verify such claim of randomness.
 
 
 
@@ -173,7 +177,3 @@ Adds the value "onion-v3" to the Identifier Type column  for the "http-01", "oni
 
 As onion addresses are able to generated in massive quantity without financial cost, it bypasses the normal ratelimit CAs imposess. CAs SHOULD adapt some mesure to prevent DoS of CA by create hugh amount of request for onion address. For exemple, imposing limit per ACME account or require order to have at least one non-onion domain.
 
-# note
-
-Should this be generic documents about all public key based alternative DNS nameing system?
-Is it allowed to point to external rule document outside like CA/B?
