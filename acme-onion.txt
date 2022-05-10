@@ -139,7 +139,7 @@ Internet-Draft                 ACME-ONION                       May 2022
 
    The Onion-csr ACME challenge object has the following format:
 
-   type (required, string):  The string "onion-v3-csr
+   type (required, string):  The string "onion-v3-csr"
 
    token (required, string):  A random value that uniquely identifies
       the challenge.  This value MUST have at least 128 bits of entropy.
@@ -229,9 +229,10 @@ Internet-Draft                 ACME-ONION                       May 2022
    2.  A caSigningNonce attribute that contains token Value that
        challenge object provided.
 
-   3.  A applicantSigningNonce attribute that contains client-genetarted
-       random value.  This value SHOULD include at least 64bits of
-       entropy.  (CA/BR requirement)
+   3.  exsistance of applicantSigningNonce attribute.  This value SHOULD
+       include at least 64bits of entropy from client side, but server
+       MAY NOT verify such claim, as by nature it's imposible to verify
+       such claim of randomness.
 
 5.  IANA Considerations
 
@@ -245,23 +246,24 @@ Internet-Draft                 ACME-ONION                       May 2022
 
    in the Validation Methods list defined in Section 9.7.8 of [RFC8555]:
 
-   Adds the raw "onin-challange-csr" to the Validation Methods.
+   Adds the raw "onion-v3-csr" to the Validation Methods.
 
-   Adds the value "onion-v3-csr" to the Identifier Type column for the
+   Adds the value "onion-v3" to the Identifier Type column for the
    "http-01", "onion-challange-csr", and "tls-alpn-01" challenges.
 
 6.  Security Considerations
 
    As onion addresses are able to generated in massive quantity without
    financial cost, it bypasses the normal ratelimit CAs imposess.  CAs
-   SHOULD adapt some mesure to prevent DoSing the CA by create hugh
-   amount of request for onion address.  For exemple, imposing limit per
-   ACME account or require order to have at least one non-onion domain.
+   SHOULD adapt some mesure to prevent DoS of CA by create hugh amount
+   of request for onion address.  For exemple, imposing limit per ACME
+   account or require order to have at least one non-onion domain.
 
 7.  note
 
-   this doc is made as documentation of my pebble tree does: process may
-   change in track
+   Should this be generic documents about all public key based
+   alternative DNS nameing system?  Is it allowed to point to external
+   rule document outside like CA/B?
 
 8.  Normative References
 
@@ -269,10 +271,8 @@ Internet-Draft                 ACME-ONION                       May 2022
               2022, <https://cabforum.org/wp-content/uploads/CA-Browser-
               Forum-BR-1.8.4.pdf>.
 
-   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
-              Requirement Levels", BCP 14, RFC 2119,
-              DOI 10.17487/RFC2119, March 1997,
-              <https://www.rfc-editor.org/info/rfc2119>.
+
+
 
 
 
@@ -281,6 +281,11 @@ Seo Suchan              Expires 10 November 2022                [Page 5]
 
 Internet-Draft                 ACME-ONION                       May 2022
 
+
+   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", BCP 14, RFC 2119,
+              DOI 10.17487/RFC2119, March 1997,
+              <https://www.rfc-editor.org/info/rfc2119>.
 
    [RFC4086]  Eastlake 3rd, D., Schiller, J., and S. Crocker,
               "Randomness Requirements for Security", BCP 106, RFC 4086,
@@ -324,11 +329,6 @@ Author's Address
 
    Seo Suchan
    Email: tjtncks@gmail.com
-
-
-
-
-
 
 
 

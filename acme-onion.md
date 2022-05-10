@@ -94,7 +94,7 @@ With Onion-csr validation, the client in an ACME transaction proves its control 
 The Onion-csr ACME challenge object has the following format:
 
 type (required, string):
-: The string "onion-v3-csr
+: The string "onion-v3-csr"
 
 token (required, string):
 : A random value that uniquely identifies the challenge. This value MUST have at least 128 bits of entropy. It MUST NOT contain any characters outside the base64url alphabet as described in {{RFC4648}} Section 5. Trailing '=' padding characters MUST be stripped. See {{!RFC4086}} for additional information on randomness requirements.
@@ -150,7 +150,7 @@ On receiving this request from client, the server verifies client's control over
 
 1. CSR is signed with private part of identity key the requested onion address made from.
 2. A caSigningNonce attribute that contains token Value that challenge object provided.
-3. A applicantSigningNonce attribute that contains client-genetarted random value. This value SHOULD include at least 64bits of entropy. (CA/BR requirement)
+3. exsistance of applicantSigningNonce attribute. This value SHOULD include at least 64bits of entropy from client side, but server MAY NOT verify such claim, as by nature it's imposible to verify such claim of randomness.
 
 
 
@@ -165,13 +165,15 @@ Adds a new type to the Identifier list defined in Section 9.7.7 of {{RFC8555}} w
 
 in the Validation Methods list defined in Section 9.7.8 of {{RFC8555}}:
 
-Adds the raw "onin-challange-csr" to the Validation Methods.
+Adds the raw "onion-v3-csr" to the Validation Methods.
 
-Adds the value "onion-v3-csr" to the Identifier Type column  for the "http-01", "onion-challange-csr", and "tls-alpn-01" challenges.
+Adds the value "onion-v3" to the Identifier Type column  for the "http-01", "onion-challange-csr", and "tls-alpn-01" challenges.
 
 # Security Considerations
 
-As onion addresses are able to generated in massive quantity without financial cost, it bypasses the normal ratelimit CAs imposess. CAs SHOULD adapt some mesure to prevent DoSing the CA by create hugh amount of request for onion address. For exemple, imposing limit per ACME account or require order to have at least one non-onion domain.
+As onion addresses are able to generated in massive quantity without financial cost, it bypasses the normal ratelimit CAs imposess. CAs SHOULD adapt some mesure to prevent DoS of CA by create hugh amount of request for onion address. For exemple, imposing limit per ACME account or require order to have at least one non-onion domain.
 
 # note
-this doc is made as documentation of my pebble tree does: process may change in track
+
+Should this be generic documents about all public key based alternative DNS nameing system?
+Is it allowed to point to external rule document outside like CA/B?

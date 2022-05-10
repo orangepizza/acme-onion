@@ -89,7 +89,7 @@
 <dl>
   <dt>type (required, string):</dt>
   <dd>
-    <t>The string &quot;onion-v3-csr</t>
+    <t>The string &quot;onion-v3-csr&quot;</t>
   </dd>
   <dt>token (required, string):</dt>
   <dd>
@@ -149,7 +149,7 @@ Content-Type: application/jose+json
 <t><list style="numbers">
   <t>CSR is signed with private part of identity key the requested onion address made from.</t>
   <t>A caSigningNonce attribute that contains token Value that challenge object provided.</t>
-  <t>A applicantSigningNonce attribute that contains client-genetarted random value. This value SHOULD include at least 64bits of entropy. (CA/BR requirement)</t>
+  <t>exsistance of applicantSigningNonce attribute. This value SHOULD include at least 64bits of entropy from client side, but server MAY NOT verify such claim, as by nature it&#39;s imposible to verify such claim of randomness.</t>
 </list></t>
 
 </section>
@@ -165,19 +165,21 @@ Content-Type: application/jose+json
 
 <t>in the Validation Methods list defined in Section 9.7.8 of <xref target="RFC8555"/>:</t>
 
-<t>Adds the raw &quot;onin-challange-csr&quot; to the Validation Methods.</t>
+<t>Adds the raw &quot;onion-v3-csr&quot; to the Validation Methods.</t>
 
-<t>Adds the value &quot;onion-v3-csr&quot; to the Identifier Type column  for the &quot;http-01&quot;, &quot;onion-challange-csr&quot;, and &quot;tls-alpn-01&quot; challenges.</t>
+<t>Adds the value &quot;onion-v3&quot; to the Identifier Type column  for the &quot;http-01&quot;, &quot;onion-challange-csr&quot;, and &quot;tls-alpn-01&quot; challenges.</t>
 
 </section>
 </section>
 <section anchor="security-considerations"><name>Security Considerations</name>
 
-<t>As onion addresses are able to generated in massive quantity without financial cost, it bypasses the normal ratelimit CAs imposess. CAs SHOULD adapt some mesure to prevent DoSing the CA by create hugh amount of request for onion address. For exemple, imposing limit per ACME account or require order to have at least one non-onion domain.</t>
+<t>As onion addresses are able to generated in massive quantity without financial cost, it bypasses the normal ratelimit CAs imposess. CAs SHOULD adapt some mesure to prevent DoS of CA by create hugh amount of request for onion address. For exemple, imposing limit per ACME account or require order to have at least one non-onion domain.</t>
 
 </section>
 <section anchor="note"><name>note</name>
-<t>this doc is made as documentation of my pebble tree does: process may change in track</t>
+
+<t>Should this be generic documents about all public key based alternative DNS nameing system?
+Is it allowed to point to external rule document outside like CA/B?</t>
 
 </section>
 
@@ -338,76 +340,78 @@ Content-Type: application/jose+json
   </back>
 
 <!-- ##markdown-source:
-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
+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
+AA==
 
 -->
 
