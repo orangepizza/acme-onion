@@ -2,7 +2,7 @@
 title: Automated Certificate Management Environment (ACME) Onion Identifier Validation Extension
 abbrev: ACME-ONION
 docname: draft-suchan-acme-onionv3-00
-date: 2022-05-09
+date: 2022-05-10
 category: std
 
 stand_alone: yes
@@ -71,27 +71,27 @@ This document only handles V3 version of onion address as defined in {{Toraddr}}
 
 This document doesn't handle about velification of version 2 of onion addresses, as they are retired already
 
-An identifier for the onion address acmeulkebl5..4zcuv5hk7fqwad.onion would be formatted like:
+An identifier for the onion address aeceulkebl5...4zcuv5hk7fqwad.onion would be formatted like:
 
 ~~~~~~~~~~
-{"type": "onion-v3", "value": "acmeulkebl5...z4zcuv5hk7fqwad.onion"}
+{"type": "onion-v3", "value": "aeceulkebl5...4zcuv5hk7fqwad.onion"}
 ~~~~~~~~~~
 
 Keep mind in CSR this address still treated as DNS.
 
-# Validation Challenges for onion address
+# Validation Challenges for Onion address
 
 Onion-v3 identifiers MAY be used with the existing "http-01" and "tls-alpn-01" challenges from {{RFC8555}} Section 8.3 and {{RFC8737}} Section 3 respectively. To use Onion identifiers with these challenges their initial DNS resolution step MUST be skipped and the approperate Tor daemon that in control of CA MUST used to proxy such request.
 
 The exsisting "dns-01" challange MUST NOT be used to validate onion addresses.
 
-In addition to challanges earlier RFC defined, there 
+In addition to challanges earlier RFC defined, This document create an additional challange called "onion-v3-csr". This challange can be used for wildcard subdomain of Onion address.
 
-## CSR signed with Onion public key challagne
+## Identify Key Possession Challagne
 
-With Onion-csr validation, the client in an ACME transaction proves its control of oninon address by proving the possesion of onion hidden service identity key. The ACME server challenges the client to sign CSR that includes the nonce it gave with.
+With onion-csr validation, the client in an ACME transaction proves its control of an Onion address or subdomain of it by proving the possesion of Onion hidden service's identity key. The ACME server challenges the client to sign CSR that includes the nonce it gave as challange.
 
-The Onion-csr ACME challenge object has the following format:
+The onion-csr ACME challenge object has the following format:
 
 type (required, string):
 : The string "onion-v3-csr"

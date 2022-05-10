@@ -3,9 +3,9 @@
 
 
 ACME Working Group                                            Seo Suchan
-Internet-Draft                                                9 May 2022
+Internet-Draft                                               10 May 2022
 Intended status: Standards Track                                        
-Expires: 10 November 2022
+Expires: 11 November 2022
 
 
   Automated Certificate Management Environment (ACME) Onion Identifier
@@ -33,7 +33,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 10 November 2022.
+   This Internet-Draft will expire on 11 November 2022.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Seo Suchan              Expires 10 November 2022                [Page 1]
+Seo Suchan              Expires 11 November 2022                [Page 1]
 
 Internet-Draft                 ACME-ONION                       May 2022
 
@@ -63,8 +63,8 @@ Table of Contents
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
    2.  Terminology . . . . . . . . . . . . . . . . . . . . . . . . .   2
    3.  Onion Identifier  . . . . . . . . . . . . . . . . . . . . . .   2
-   4.  Validation Challenges for onion address . . . . . . . . . . .   3
-     4.1.  CSR signed with Onion public key challagne  . . . . . . .   3
+   4.  Validation Challenges for Onion address . . . . . . . . . . .   3
+     4.1.  Identify Key Possession Challagne . . . . . . . . . . . .   3
    5.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   5
      5.1.  Identifier Types  . . . . . . . . . . . . . . . . . . . .   5
      5.2.  Challenge Types . . . . . . . . . . . . . . . . . . . . .   5
@@ -100,21 +100,21 @@ Table of Contents
    This document doesn't handle about velification of version 2 of onion
    addresses, as they are retired already
 
-   An identifier for the onion address acmeulkebl5..4zcuv5hk7fqwad.onion
-   would be formatted like:
+   An identifier for the onion address
+   aeceulkebl5...4zcuv5hk7fqwad.onion would be formatted like:
 
-   {"type": "onion-v3", "value": "acmeulkebl5...z4zcuv5hk7fqwad.onion"}
+   {"type": "onion-v3", "value": "aeceulkebl5...4zcuv5hk7fqwad.onion"}
 
    Keep mind in CSR this address still treated as DNS.
 
 
 
-Seo Suchan              Expires 10 November 2022                [Page 2]
+Seo Suchan              Expires 11 November 2022                [Page 2]
 
 Internet-Draft                 ACME-ONION                       May 2022
 
 
-4.  Validation Challenges for onion address
+4.  Validation Challenges for Onion address
 
    Onion-v3 identifiers MAY be used with the existing "http-01" and
    "tls-alpn-01" challenges from [RFC8555] Section 8.3 and [RFC8737]
@@ -126,16 +126,19 @@ Internet-Draft                 ACME-ONION                       May 2022
    The exsisting "dns-01" challange MUST NOT be used to validate onion
    addresses.
 
-   In addition to challanges earlier RFC defined, there
+   In addition to challanges earlier RFC defined, This document create
+   an additional challange called "onion-v3-csr".  This challange can be
+   used for wildcard subdomain of Onion address.
 
-4.1.  CSR signed with Onion public key challagne
+4.1.  Identify Key Possession Challagne
 
-   With Onion-csr validation, the client in an ACME transaction proves
-   its control of oninon address by proving the possesion of onion
-   hidden service identity key.  The ACME server challenges the client
-   to sign CSR that includes the nonce it gave with.
+   With onion-csr validation, the client in an ACME transaction proves
+   its control of an Onion address or subdomain of it by proving the
+   possesion of Onion hidden service's identity key.  The ACME server
+   challenges the client to sign CSR that includes the nonce it gave as
+   challange.
 
-   The Onion-csr ACME challenge object has the following format:
+   The onion-csr ACME challenge object has the following format:
 
    type (required, string):  The string "onion-v3-csr"
 
@@ -162,10 +165,7 @@ Internet-Draft                 ACME-ONION                       May 2022
 
 
 
-
-
-
-Seo Suchan              Expires 10 November 2022                [Page 3]
+Seo Suchan              Expires 11 November 2022                [Page 3]
 
 Internet-Draft                 ACME-ONION                       May 2022
 
@@ -221,7 +221,7 @@ Internet-Draft                 ACME-ONION                       May 2022
 
 
 
-Seo Suchan              Expires 10 November 2022                [Page 4]
+Seo Suchan              Expires 11 November 2022                [Page 4]
 
 Internet-Draft                 ACME-ONION                       May 2022
 
@@ -277,7 +277,7 @@ Internet-Draft                 ACME-ONION                       May 2022
 
 
 
-Seo Suchan              Expires 10 November 2022                [Page 5]
+Seo Suchan              Expires 11 November 2022                [Page 5]
 
 Internet-Draft                 ACME-ONION                       May 2022
 
@@ -333,4 +333,4 @@ Author's Address
 
 
 
-Seo Suchan              Expires 10 November 2022                [Page 6]
+Seo Suchan              Expires 11 November 2022                [Page 6]
