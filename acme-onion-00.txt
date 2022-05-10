@@ -10,7 +10,7 @@ Expires: 11 November 2022
 
   Automated Certificate Management Environment (ACME) Onion Identifier
                           Validation Extension
-                      draft-suchan-acme-onionv3-00
+                       draft-suchan-acme-onion-00
 
 Abstract
 
@@ -64,20 +64,21 @@ Table of Contents
    2.  Terminology . . . . . . . . . . . . . . . . . . . . . . . . .   2
    3.  Onion Identifier  . . . . . . . . . . . . . . . . . . . . . .   2
    4.  Validation Challenges for Onion address . . . . . . . . . . .   3
-     4.1.  Identify Key Possession Challagne . . . . . . . . . . . .   3
+     4.1.  Identify Key Possession Challenge . . . . . . . . . . . .   3
    5.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   5
      5.1.  Identifier Types  . . . . . . . . . . . . . . . . . . . .   5
      5.2.  Challenge Types . . . . . . . . . . . . . . . . . . . . .   5
    6.  Security Considerations . . . . . . . . . . . . . . . . . . .   5
    7.  Normative References  . . . . . . . . . . . . . . . . . . . .   5
-   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .   6
+   Appendix A.  Appendix A: Notes and Questions to reviews . . . . .   6
+   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .   7
 
 1.  Introduction
 
    While onion addresses [RFC7686] are in form of DNS address, they
    aren't in part of ICANN hierarchy, and onion name's self-verifying
-   construction warrents different verification, duce different
-   identfier type for them is worth consider.
+   construction warrants different verification, duce different
+   identifier type for them is worth consider.
 
 2.  Terminology
 
@@ -90,14 +91,14 @@ Table of Contents
 3.  Onion Identifier
 
    [RFC8555] only defines the identifier type "dns", that assumes it's
-   on public CA/B hirearuchy, so to make clear Onion addresses are not
-   using normal DNS valification methods, we assign a new identifier
+   on public CA/B hierarchy, so to make clear Onion addresses are not
+   using normal DNS verification methods, we assign a new identifier
    type for onion v3 addresses, "onion-v3".
 
    This document only handles V3 version of onion address as defined in
    [Toraddr], identified by 56 letters base domain name ends with d.
 
-   This document doesn't handle about velification of version 2 of onion
+   This document doesn't handle about verification of version 2 of onion
    addresses, as they are retired already
 
    An identifier for the onion address
@@ -105,7 +106,6 @@ Table of Contents
 
    {"type": "onion-v3", "value": "aeceulkebl5...4zcuv5hk7fqwad.onion"}
 
-   Keep mind in CSR this address still treated as DNS.
 
 
 
@@ -113,6 +113,8 @@ Seo Suchan              Expires 11 November 2022                [Page 2]
 
 Internet-Draft                 ACME-ONION                       May 2022
 
+
+   Keep mind in CSR this address still treated as DNS.
 
 4.  Validation Challenges for Onion address
 
@@ -123,22 +125,22 @@ Internet-Draft                 ACME-ONION                       May 2022
    approperate Tor daemon that in control of CA MUST used to proxy such
    request.
 
-   The exsisting "dns-01" challange MUST NOT be used to validate onion
+   The existing "dns-01" challenge MUST NOT be used to validate onion
    addresses.
 
-   In addition to challanges earlier RFC defined, This document create
-   an additional challange called "onion-v3-csr".  This challange can be
+   In addition to challenges earlier RFC defined, This document create
+   an additional challenge called "onion-v3-csr".  This challenge can be
    used for wildcard subdomain of Onion address.
 
-4.1.  Identify Key Possession Challagne
+4.1.  Identify Key Possession Challenge
 
-   With onion-csr validation, the client in an ACME transaction proves
-   its control of an Onion address or subdomain of it by proving the
-   possesion of Onion hidden service's identity key.  The ACME server
-   challenges the client to sign CSR that includes the nonce it gave as
-   challange.
+   With onion-csr-01 validation, the client in an ACME transaction
+   proves its control of an Onion address or subdomain of it by proving
+   the possession of Onion hidden service's identity key.  The ACME
+   server challenges the client to sign CSR that includes the nonce it
+   gave as challenge.
 
-   The onion-csr ACME challenge object has the following format:
+   The onion-csr-01 ACME challenge object has the following format:
 
    type (required, string):  The string "onion-v3-csr"
 
@@ -159,9 +161,7 @@ Internet-Draft                 ACME-ONION                       May 2022
 
    The cabf caSigningNonce Attribute is identified by the cabf-
    caSigningNonce object identifier (OID) in the cabf arc [RFC5280].
-   conseurt [cabr] appendex B for how to construct CSR itself in detail.
-
-
+   consult [cabr] appendix B for how to construct CSR itself in detail.
 
 
 
@@ -193,8 +193,8 @@ Internet-Draft                 ACME-ONION                       May 2022
    }
    cabf-applicantSigningNonce OBJECT IDENTIFIER ::= { cabf 42 }
 
-   A client fulfills this challenge by construct the challange CSR from
-   the "token" value provided in the challange, then POST on challange
+   A client fulfills this challenge by construct the challenge CSR from
+   the "token" value provided in the challenge, then POST on challenge
    URL with crafted CSR as payload to request validated by the server.
 
    POST /acme/authz/1234/1
@@ -215,7 +215,7 @@ Internet-Draft                 ACME-ONION                       May 2022
    }
 
    On receiving this request from client, the server verifies client's
-   control over the onion address by verifiy that CSR is crafted with
+   control over the onion address by verify that CSR is crafted with
    expected properties:
 
 
@@ -232,10 +232,10 @@ Internet-Draft                 ACME-ONION                       May 2022
    2.  A caSigningNonce attribute that contains token Value that
        challenge object provided.
 
-   3.  exsistance of applicantSigningNonce attribute.  This value SHOULD
+   3.  existence of applicantSigningNonce attribute.  This value SHOULD
        include random value from client side with at least 64bits of
-       entropy, and CA MUST recommand to client do so, but servers are
-       not expected verify such claim, as by nature it's imposible to
+       entropy, and CA MUST recommend to client do so, but servers are
+       not expected verify such claim, as by nature it's impossible to
        verify such claim of randomness.
 
 5.  IANA Considerations
@@ -253,14 +253,14 @@ Internet-Draft                 ACME-ONION                       May 2022
    Adds the raw "onion-v3-csr" to the Validation Methods.
 
    Adds the value "onion-v3" to the Identifier Type column for the
-   "http-01", "onion-challange-csr", and "tls-alpn-01" challenges.
+   "http-01", "onion-challenge-csr", and "tls-alpn-01" challenges.
 
 6.  Security Considerations
 
    As onion addresses are able to generated in massive quantity without
-   financial cost, it bypasses the normal ratelimit CAs imposess.  CAs
-   SHOULD adapt some mesure to prevent DoS of CA by create hugh amount
-   of request for onion address.  For exemple, imposing limit per ACME
+   financial cost, it bypasses the normal ratelimit CAs imposes.  CAs
+   SHOULD adapt some measure to prevent DoS of CA by create hugh amount
+   of request for onion address.  For example, imposing limit per ACME
    account or require order to have at least one non-onion domain.
 
 7.  Normative References
@@ -320,6 +320,28 @@ Internet-Draft                 ACME-ONION                       May 2022
               <https://github.com/torproject/torspec/blob/main/address-
               spec.txt>.
 
+Appendix A.  Appendix A: Notes and Questions to reviews
+
+   should this be about onion address, or all kind of alternative DNS
+   systems? should identifier type and challenge type include or strip
+   -v3 tag from its name? if we include that how about this doc name
+   itself? http-01 and tls-alpn-01 over tor will work as well for like
+   onion address V2 or V12, but csr challenge may not. but it's
+   reasonable to ask same identifier type should give same set of
+   challenges. should the as rigid as complying this will make comply
+   CA/B Baseline requirement? while type onion domain name just full
+
+
+
+Seo Suchan              Expires 11 November 2022                [Page 6]
+
+Internet-Draft                 ACME-ONION                       May 2022
+
+
+   onion v3 name itself with example subdomain will exceed rfc line
+   limit. but using ... doesn't right in context of domain name. any
+   alternative to express truncated FQDN?
+
 Author's Address
 
    Seo Suchan
@@ -333,4 +355,38 @@ Author's Address
 
 
 
-Seo Suchan              Expires 11 November 2022                [Page 6]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Seo Suchan              Expires 11 November 2022                [Page 7]
