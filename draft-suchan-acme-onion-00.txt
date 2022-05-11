@@ -2,7 +2,7 @@
 
 
 
-ACME Working Group                                            Seo Suchan
+ACME Working Group                                                S. Seo
 Internet-Draft                                               10 May 2022
 Intended status: Standards Track                                        
 Expires: 11 November 2022
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Seo Suchan              Expires 11 November 2022                [Page 1]
+Seo                     Expires 11 November 2022                [Page 1]
 
 Internet-Draft                 ACME-ONION                       May 2022
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Seo Suchan              Expires 11 November 2022                [Page 2]
+Seo                     Expires 11 November 2022                [Page 2]
 
 Internet-Draft                 ACME-ONION                       May 2022
 
@@ -122,7 +122,7 @@ Internet-Draft                 ACME-ONION                       May 2022
    "tls-alpn-01" challenges from [RFC8555] Section 8.3 and [RFC8737]
    Section 3 respectively.  To use Onion identifiers with these
    challenges their initial DNS resolution step MUST be skipped and the
-   approperate Tor daemon that in control of CA MUST used to proxy such
+   appropriate Tor daemon that in control of CA MUST used to proxy such
    request.
 
    The existing "dns-01" challenge MUST NOT be used to validate onion
@@ -165,7 +165,7 @@ Internet-Draft                 ACME-ONION                       May 2022
 
 
 
-Seo Suchan              Expires 11 November 2022                [Page 3]
+Seo                     Expires 11 November 2022                [Page 3]
 
 Internet-Draft                 ACME-ONION                       May 2022
 
@@ -221,7 +221,7 @@ Internet-Draft                 ACME-ONION                       May 2022
 
 
 
-Seo Suchan              Expires 11 November 2022                [Page 4]
+Seo                     Expires 11 November 2022                [Page 4]
 
 Internet-Draft                 ACME-ONION                       May 2022
 
@@ -242,18 +242,18 @@ Internet-Draft                 ACME-ONION                       May 2022
 
 5.1.  Identifier Types
 
-   Adds a new type to the Identifier list defined in Section 9.7.7 of
-   [RFC8555] with the label "onion-v3" and reference I-D.ietf-acme-
-   onion.
+   Adds a new type to the Identifier list in ACME Identifier Types with
+   the label "onion-v3" and reference I-D.THISDOC.
 
 5.2.  Challenge Types
 
-   in the Validation Methods list defined in Section 9.7.8 of [RFC8555]:
+   in the ACME Validation Methods list:
 
    Adds the raw "onion-v3-csr" to the Validation Methods.
 
    Adds the value "onion-v3" to the Identifier Type column for the
-   "http-01", "onion-challenge-csr", and "tls-alpn-01" challenges.
+   "http-01", "onion-challenge-csr", and "tls-alpn-01" challenges. , and
+   reference I-D.THISDOC each of them.
 
 6.  Security Considerations
 
@@ -277,7 +277,7 @@ Internet-Draft                 ACME-ONION                       May 2022
 
 
 
-Seo Suchan              Expires 11 November 2022                [Page 5]
+Seo                     Expires 11 November 2022                [Page 5]
 
 Internet-Draft                 ACME-ONION                       May 2022
 
@@ -333,7 +333,7 @@ Appendix A.  Notes and Questions to reviews
 
 
 
-Seo Suchan              Expires 11 November 2022                [Page 6]
+Seo                     Expires 11 November 2022                [Page 6]
 
 Internet-Draft                 ACME-ONION                       May 2022
 
@@ -389,4 +389,4 @@ Author's Address
 
 
 
-Seo Suchan              Expires 11 November 2022                [Page 7]
+Seo                     Expires 11 November 2022                [Page 7]

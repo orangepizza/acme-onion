@@ -1191,7 +1191,7 @@ li > p:last-of-type {
 <td class="right">May 2022</td>
 </tr></thead>
 <tfoot><tr>
-<td class="left">Seo Suchan</td>
+<td class="left">Seo</td>
 <td class="center">Expires 11 November 2022</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
@@ -1214,7 +1214,7 @@ li > p:last-of-type {
 <dt class="label-authors">Author:</dt>
 <dd class="authors">
 <div class="author">
-      <div class="author-name">Seo Suchan</div>
+      <div class="author-name">S. Seo</div>
 </div>
 </dd>
 </dl>
@@ -1354,7 +1354,7 @@ li > p:last-of-type {
       <h2 id="name-validation-challenges-for-on">
 <a href="#section-4" class="section-number selfRef">4. </a><a href="#name-validation-challenges-for-on" class="section-name selfRef">Validation Challenges for Onion address</a>
       </h2>
-<p id="section-4-1">Onion-v3 identifiers MAY be used with the existing "http-01" and "tls-alpn-01" challenges from <span>[<a href="#RFC8555" class="xref">RFC8555</a>]</span> Section 8.3 and <span>[<a href="#RFC8737" class="xref">RFC8737</a>]</span> Section 3 respectively. To use Onion identifiers with these challenges their initial DNS resolution step MUST be skipped and the approperate Tor daemon that in control of CA MUST used to proxy such request.<a href="#section-4-1" class="pilcrow">¶</a></p>
+<p id="section-4-1">Onion-v3 identifiers MAY be used with the existing "http-01" and "tls-alpn-01" challenges from <span>[<a href="#RFC8555" class="xref">RFC8555</a>]</span> Section 8.3 and <span>[<a href="#RFC8737" class="xref">RFC8737</a>]</span> Section 3 respectively. To use Onion identifiers with these challenges their initial DNS resolution step MUST be skipped and the appropriate Tor daemon that in control of CA MUST used to proxy such request.<a href="#section-4-1" class="pilcrow">¶</a></p>
 <p id="section-4-2">The existing "dns-01" challenge MUST NOT be used to validate onion addresses.<a href="#section-4-2" class="pilcrow">¶</a></p>
 <p id="section-4-3">In addition to challenges earlier RFC defined, This document create an additional challenge called "onion-v3-csr". This challenge can be used for wildcard subdomain of Onion address.<a href="#section-4-3" class="pilcrow">¶</a></p>
 <div id="identify-key-possession-challenge">
@@ -1449,7 +1449,7 @@ Content-Type: application/jose+json
         <h3 id="name-identifier-types-2">
 <a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-identifier-types-2" class="section-name selfRef">Identifier Types</a>
         </h3>
-<p id="section-5.1-1">Adds a new type to the Identifier list defined in Section 9.7.7 of <span>[<a href="#RFC8555" class="xref">RFC8555</a>]</span> with the label "onion-v3" and reference I-D.ietf-acme-onion.<a href="#section-5.1-1" class="pilcrow">¶</a></p>
+<p id="section-5.1-1">Adds a new type to the Identifier list in ACME Identifier Types with the label "onion-v3" and reference I-D.THISDOC.<a href="#section-5.1-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="challenge-types">
@@ -1457,9 +1457,9 @@ Content-Type: application/jose+json
         <h3 id="name-challenge-types-2">
 <a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-challenge-types-2" class="section-name selfRef">Challenge Types</a>
         </h3>
-<p id="section-5.2-1">in the Validation Methods list defined in Section 9.7.8 of <span>[<a href="#RFC8555" class="xref">RFC8555</a>]</span>:<a href="#section-5.2-1" class="pilcrow">¶</a></p>
+<p id="section-5.2-1">in the ACME Validation Methods list:<a href="#section-5.2-1" class="pilcrow">¶</a></p>
 <p id="section-5.2-2">Adds the raw "onion-v3-csr" to the Validation Methods.<a href="#section-5.2-2" class="pilcrow">¶</a></p>
-<p id="section-5.2-3">Adds the value "onion-v3" to the Identifier Type column  for the "http-01", "onion-challenge-csr", and "tls-alpn-01" challenges.<a href="#section-5.2-3" class="pilcrow">¶</a></p>
+<p id="section-5.2-3">Adds the value "onion-v3" to the Identifier Type column  for the "http-01", "onion-challenge-csr", and "tls-alpn-01" challenges. , and reference I-D.THISDOC each of them.<a href="#section-5.2-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>

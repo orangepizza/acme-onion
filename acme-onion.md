@@ -25,6 +25,7 @@ author:
   -
     ins: S. Seo
     name: Seo Suchan
+
     email: tjtncks@gmail.com
 
 normative:
@@ -163,15 +164,16 @@ On receiving this request from client, the server verifies client's control over
 
 ## Identifier Types
 
-Adds a new type to the Identifier list defined in Section 9.7.7 of {{RFC8555}} with the label "onion-v3" and reference I-D.ietf-acme-onion.
+Adds a new type to the Identifier list in ACME Identifier Types with the label "onion-v3" and reference I-D.THISDOC.
 
 ## Challenge Types
 
-in the Validation Methods list defined in Section 9.7.8 of {{RFC8555}}:
+in the ACME Validation Methods list:
 
 Adds the raw "onion-v3-csr" to the Validation Methods.
 
-Adds the value "onion-v3" to the Identifier Type column  for the "http-01", "onion-challenge-csr", and "tls-alpn-01" challenges.
+Adds the value "onion-v3" to the Identifier Type column  for the "http-01", "onion-challenge-csr", and "tls-alpn-01" challenges. , and reference I-D.THISDOC each of them.
+
 
 # Security Considerations
 
