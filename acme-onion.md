@@ -187,4 +187,4 @@ As onion addresses are able to generated in massive quantity without financial c
 should this be about onion address, or all kind of alternative DNS systems?
 should identifier type and challenge type include or strip -v3 tag from its name? if we include that how about this doc name itself? http-01 and tls-alpn-01 over tor will work as well for like onion address V2 or V12, but csr challenge may not. but it's reasonable to ask same identifier type should give same set of challenges.
 should the as rigid as complying this will make comply CA/B Baseline requirement?
-while type onion domain name just full onion v3 name itself with example subdomain will exceed rfc line limit. but using ... doesn't right in context of domain name. any alternative to express truncated FQDN?
+while type onion domain name just full onion v3 name itself with example subdomain will exceed rfc line limit. but using ... doesn't right in context of domain name. any alternative to express truncated FQDN? would "example.onion" work while it wouldn't be valid onion name?

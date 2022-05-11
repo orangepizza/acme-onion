@@ -340,13 +340,13 @@ Internet-Draft                 ACME-ONION                       May 2022
 
    onion v3 name itself with example subdomain will exceed rfc line
    limit. but using ... doesn't right in context of domain name. any
-   alternative to express truncated FQDN?
+   alternative to express truncated FQDN? would "example.onion" work
+   while it wouldn't be valid onion name?
 
 Author's Address
 
    Seo Suchan
    Email: tjtncks@gmail.com
-
 
 
 
