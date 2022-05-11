@@ -4,7 +4,7 @@ abbrev: ACME-ONION
 docname: draft-suchan-acme-onion-00
 date: 2022-05-10
 category: std
-
+lang: en
 stand_alone: yes
 
 ipr: trust200902
@@ -23,7 +23,7 @@ pi:    # can use array (if all yes) or hash here
 
 author:
   -
-    ins: Seo Suchan
+    ins: S. Seo
     name: Seo Suchan
     email: tjtncks@gmail.com
 
@@ -81,7 +81,7 @@ Keep mind in CSR this address still treated as DNS.
 
 # Validation Challenges for Onion address
 
-Onion-v3 identifiers MAY be used with the existing "http-01" and "tls-alpn-01" challenges from {{RFC8555}} Section 8.3 and {{RFC8737}} Section 3 respectively. To use Onion identifiers with these challenges their initial DNS resolution step MUST be skipped and the approperate Tor daemon that in control of CA MUST used to proxy such request.
+Onion-v3 identifiers MAY be used with the existing "http-01" and "tls-alpn-01" challenges from {{RFC8555}} Section 8.3 and {{RFC8737}} Section 3 respectively. To use Onion identifiers with these challenges their initial DNS resolution step MUST be skipped and the appropriate Tor daemon that in control of CA MUST used to proxy such request.
 
 The existing "dns-01" challenge MUST NOT be used to validate onion addresses.
 
